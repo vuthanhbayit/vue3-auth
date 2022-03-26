@@ -1,6 +1,6 @@
 {
   "name": "vue3-auth",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "A simple light-weight authentication library for Vue 3",
   "keywords": [
     "vue",
