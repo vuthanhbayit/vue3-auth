@@ -43,6 +43,8 @@ app.use(router).use(authPlugin, {
     user: {
       propertyInLogin: 'user',
       propertyInFetch: '',
+      propertyRole: 'role',
+      propertyPermission: 'permissions',
       autoFetch: true,
     },
   },
@@ -174,4 +176,170 @@ user: {
 
 - `autoFetch`: By default, auth will load the user's info using a second HTTP request after a successful login.
 - `propertyInLogin` can be used to specify which field of the response JSON to be used for value in `login` api.
+- `propertyRole` get `role` in `user` data and to use functions `getRole`, `isRole` in `useAuth` composable.
+- `propertyPermission` get `permisison` in `user` data and to use functions `getPermissions`, `hasPermission` in `useAuth` composable.
 - `propertyInFetch` can be used to specify which field of the response JSON to be used for value in `fetch user` api.
+
+## useAuth
+
+```vue
+<script lang="ts" setup>
+import { useAuth } from 'vue3-auth'
+
+const {
+  login,
+  logout,
+  setToken,
+  getToken,
+  getUser,
+  setUser,
+  getRole,
+  isRole,
+  getPermissions,
+  hasPermission,
+  resetState,
+  fetchUser,
+  user,
+  loggedIn
+} = useAuth()
+</script>
+```
+
+### `login`
+
+```vue
+<script lang="ts" setup>
+import { reactive } from "vue";
+import { useAuth } from 'vue3-auth'
+
+const { login } = useAuth()
+
+const state = reactive({
+  username: '',
+  password: ''
+})
+
+const onLogin = async () => {
+  try {
+    const data = await login(state)
+    
+    console.log('login success >>> ', data)
+  } catch (e) {
+    console.log('login error >>> ', e)
+  }
+}
+</script>
+```
+
+### `logout`
+
+```vue
+<template>
+  <div>
+    <button @click="logout">logout</button>
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { useAuth } from 'vue3-auth'
+
+const { logout } = useAuth()
+</script>
+```
+
+### `isRole` and `hasPermission`
+
+By default `local.user.propertyRole = role` and `local.user.propertyPermission = permissions`.
+```
+local: {
+  user: {
+    propertyRole: 'role',
+    propertyPermission: 'permissions',
+  },
+}
+```
+API `fetchUser` has `user` data:
+
+```
+user: {
+  username: 'MR. Seven',
+  age: 29,
+  email: 'vuthanhbayit@gmail.com',
+  role: 'manager',
+  permissions: ['view.blog', 'create.blog']
+}
+```
+
+```vue
+<script lang="ts" setup>
+import { useAuth } from 'vue3-auth'
+
+const { isRole, hasPermission } = useAuth()
+
+isRole('manager') // true
+isRole('admin') // false
+hasPermission('view.blog') // true
+hasPermission('edit.role') // false
+</script>
+```
+
+### Meta data auth
+```vue
+<!-- required page-->
+<template>
+  <div>
+    This is required page
+  </div>
+</template>
+
+
+<route>
+{
+  meta: {
+    auth: true
+  }
+}
+</route>
+```
+
+```vue
+<!-- admin page-->
+<template>
+  <div>
+    This is Admin page
+  </div>
+</template>
+
+
+<route>
+{
+  meta: {
+    auth: {
+      role: "admin"
+    }
+  }
+}
+</route>
+```
+
+```vue
+<!-- create blog -->
+<template>
+  <div>
+    This is Create blog page
+  </div>
+</template>
+
+
+<route>
+{
+  meta: {
+    auth: {
+      permission: "create.blog"
+    }
+  }
+}
+</route>
+```
+
+
