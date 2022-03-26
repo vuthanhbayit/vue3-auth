@@ -1,7 +1,7 @@
 import defu from 'defu'
 import useToken from './useToken'
 import useUser from './useUser'
-import { DEFAULT_OPTION } from './contants'
+import { DEFAULT_OPTION } from './constants'
 import type { App, Plugin } from 'vue'
 import type { AuthOptions } from './types'
 
