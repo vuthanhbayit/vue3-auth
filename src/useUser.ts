@@ -62,10 +62,6 @@ const useUser = createSharedComposable((options: AuthOptions) => {
             [token.name]: getToken(),
           }
         },
-        async onResponse({ response }) {
-          response._data.data.role = 'admin'
-          response._data.data.permissions = ['view1', 'create1', 'view2']
-        },
       })
 
       const _user = propertyInFetch ? data[propertyInFetch] : data
