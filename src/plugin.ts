@@ -2,8 +2,9 @@ import defu from 'defu'
 import useToken from './useToken'
 import useUser from './useUser'
 import { DEFAULT_OPTION } from './constants'
+import { isObject } from './utils'
 import type { App, Plugin } from 'vue'
-import type { AuthOptions } from './types'
+import type { AuthOptions, MetaAuth } from './types'
 
 const createAuth = (app: App, _options: AuthOptions) => {
   const options = defu(_options, DEFAULT_OPTION)
@@ -12,11 +13,31 @@ const createAuth = (app: App, _options: AuthOptions) => {
 
   const { router, redirect, fullPathRedirect, local } = options
   const { getToken } = useToken(options)
-  const { isLoggedIn, fetchUser } = useUser(options)
+  const { isLoggedIn, fetchUser, isRole, hasPermission } = useUser(options)
 
   router.beforeEach(async (to, from, next) => {
     const token = getToken()
-    const loggedIn = isLoggedIn()
+    const { auth: metaAuth } = to.meta
+
+    const isValidateAuthenticatedNextPage = (metaAuth: MetaAuth) => {
+      let isAuthenticated = false
+
+      if (metaAuth === true && isLoggedIn()) {
+        isAuthenticated = true
+      }
+
+      if (isObject(metaAuth)) {
+        if (metaAuth.hasOwnProperty('role')) {
+          isAuthenticated = isRole(metaAuth.role)
+        }
+
+        if (metaAuth.hasOwnProperty('permission')) {
+          isAuthenticated = hasPermission(metaAuth.permission)
+        }
+      }
+
+      return isAuthenticated
+    }
 
     const redirectToLoginPage = () => {
       const redirectPath = fullPathRedirect ? to.fullPath : to.path
@@ -26,34 +47,33 @@ const createAuth = (app: App, _options: AuthOptions) => {
 
     if (token) {
       if (to.path === redirect.login) {
-        next({ path: redirect.home })
-      } else {
-        if (loggedIn) {
-          next()
-        } else {
-          if (local.user.autoFetch) {
-            try {
-              await fetchUser()
+        return next({ path: redirect.home })
+      }
 
-              next()
-            } catch {
-              redirectToLoginPage()
-            }
-          }
-
-          next()
+      if (!isLoggedIn() && local.user.autoFetch) {
+        try {
+          await fetchUser()
+        } catch {
+          redirectToLoginPage()
         }
       }
-    } else {
-      const isAuthMeta = Boolean(to.meta.auth)
-      const isPageGuest = redirect.login === to.path || !isAuthMeta
 
-      if (isPageGuest) {
-        next()
-      } else {
-        redirectToLoginPage()
+      if (!metaAuth || isValidateAuthenticatedNextPage(metaAuth as MetaAuth)) {
+        return next()
       }
+
+      return next(`${redirect.home}`)
     }
+
+    if (
+      redirect.login === to.path ||
+      !metaAuth ||
+      isValidateAuthenticatedNextPage(metaAuth as MetaAuth)
+    ) {
+      return next()
+    }
+
+    return redirectToLoginPage()
   })
 }
 

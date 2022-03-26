@@ -21,6 +21,8 @@ export interface Token {
 export interface User {
   propertyInLogin: string
   propertyInFetch: string
+  propertyRole: string
+  propertyPermission: string
   autoFetch: boolean
 }
 
@@ -38,3 +40,10 @@ export interface AuthOptions {
     user: User
   }
 }
+
+export type MetaAuth =
+  | boolean
+  | {
+      role: string
+      permission: string
+    }

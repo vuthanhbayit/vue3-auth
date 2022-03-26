@@ -16,7 +16,17 @@ const useAuth = (_options?: AuthOptions) => {
   const { baseUrl, redirect, watchLoggedIn } = options
   const { endpoints, token, user } = options.local
 
-  const { state, getUser, setUser, fetchUser, resetState } = useUser(options)
+  const {
+    state,
+    getUser,
+    setUser,
+    fetchUser,
+    getRole,
+    isRole,
+    getPermissions,
+    hasPermission,
+    resetState,
+  } = useUser(options)
   const { setToken, getToken, removeToken } = useToken(options)
 
   const redirectAfterLogin = () => {
@@ -88,6 +98,10 @@ const useAuth = (_options?: AuthOptions) => {
     getToken,
     getUser,
     setUser,
+    getRole,
+    isRole,
+    getPermissions,
+    hasPermission,
     resetState,
     fetchUser,
     ...toRefs(state),

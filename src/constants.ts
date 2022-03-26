@@ -21,6 +21,8 @@ export const DEFAULT_OPTION = {
     user: {
       propertyInLogin: 'user',
       propertyInFetch: '',
+      propertyRole: 'role',
+      propertyPermission: 'permissions',
       autoFetch: true,
     },
   },
