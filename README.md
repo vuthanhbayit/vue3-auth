@@ -1,11 +1,55 @@
-# Vue 3 + Typescript + Vite
+<h1 align="center" >🔑 Vue3 Auth</h1>
 
-This template should help get you started developing with Vue 3 and Typescript in Vite. The template uses Vue 3 `<script setup>` SFCs, check out the [script setup docs](https://v3.vuejs.org/api/sfc-script-setup.html#sfc-script-setup) to learn more.
+<p align="center">Zero-boilerplate authentication support for Vue 3!</p>
 
-## Recommended IDE Setup
+## Getting Started
 
-- [VSCode](https://code.visualstudio.com/) + [Volar](https://marketplace.visualstudio.com/items?itemName=johnsoncodehk.volar)
+```bash
+$ yarn add vue3-auth
+```
 
-## Type Support For `.vue` Imports in TS
+## Features
 
-Since TypeScript cannot handle type information for `.vue` imports, they are shimmed to be a generic Vue component type by default. In most cases this is fine if you don't really care about component prop types outside of templates. However, if you wish to get actual prop types in `.vue` imports (for example to get props validation when using manual `h(...)` calls), you can enable Volar's `.vue` type support plugin by running `Volar: Switch TS Plugin on/off` from VSCode command palette.
+## Example
+
+```ts
+import { createApp } from 'vue'
+import router from './router'
+import App from './App.vue'
+import { authPlugin } from 'vue3-auth'
+
+const app = createApp(App)
+
+app.use(router).use(authPlugin, {
+  router,
+  baseUrl: import.meta.env.VITE_BASE_URL,
+  fullPathRedirect: true,
+  watchLoggedIn: true,
+  redirect: {
+    login: '/login',
+    logout: '/login',
+    home: '/',
+  },
+  local: {
+    endpoints: {
+      login: { url: '/api/auth/login', method: 'post' },
+      logout: { url: '/api/auth/logout', method: 'post' },
+      user: { url: '/api/auth/user', method: 'get' },
+    },
+    token: {
+      property: 'token',
+      type: 'Bearer',
+      name: 'Authorization',
+      prefix: '_token',
+    },
+    user: {
+      propertyInLogin: 'user',
+      propertyInFetch: '',
+      autoFetch: true,
+    },
+  },
+})
+
+app.mount('#app')
+
+```
