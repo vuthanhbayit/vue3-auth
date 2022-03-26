@@ -5,7 +5,7 @@ import { reactive } from 'vue'
 import useToken from './useToken'
 
 const useUser = createSharedComposable((options: AuthOptions) => {
-  const { getToken } = useToken(options)
+  const { getToken, removeToken } = useToken(options)
   const state = reactive({
     user: null,
     loggedIn: false,
@@ -30,22 +30,29 @@ const useUser = createSharedComposable((options: AuthOptions) => {
 
     const url = baseUrl + user.url
 
-    const { data } = await $fetch(url, {
-      method: user.method,
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      onRequest({ options }) {
-        options.headers = {
-          [token.name]: getToken(),
-        }
-      },
-    })
+    try {
+      const { data } = await $fetch(url, {
+        method: user.method,
+        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+        // @ts-ignore
+        onRequest({ options }) {
+          options.headers = {
+            [token.name]: getToken(),
+          }
+        },
+      })
 
-    const _user = propertyInFetch ? data[propertyInFetch] : data
+      const _user = propertyInFetch ? data[propertyInFetch] : data
 
-    setUser(_user)
+      setUser(_user)
 
-    return _user
+      return _user
+    } catch (e) {
+      resetState()
+      removeToken()
+
+      throw e
+    }
   }
 
   const resetState = () => {

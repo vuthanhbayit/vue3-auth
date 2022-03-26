@@ -18,6 +18,12 @@ const createAuth = (app: App, _options: AuthOptions) => {
     const token = getToken()
     const loggedIn = isLoggedIn()
 
+    const redirectToLoginPage = () => {
+      const redirectPath = fullPathRedirect ? to.fullPath : to.path
+
+      next(`${redirect.login}?redirect=${redirectPath}`)
+    }
+
     if (token) {
       if (to.path === redirect.login) {
         next({ path: redirect.home })
@@ -26,7 +32,13 @@ const createAuth = (app: App, _options: AuthOptions) => {
           next()
         } else {
           if (local.user.autoFetch) {
-            await fetchUser()
+            try {
+              await fetchUser()
+
+              next()
+            } catch {
+              redirectToLoginPage()
+            }
           }
 
           next()
@@ -39,9 +51,7 @@ const createAuth = (app: App, _options: AuthOptions) => {
       if (isPageGuest) {
         next()
       } else {
-        const redirectPath = fullPathRedirect ? to.fullPath : to.path
-
-        next(`${redirect.login}?redirect=${redirectPath}`)
+        redirectToLoginPage()
       }
     }
   })

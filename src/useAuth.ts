@@ -50,7 +50,12 @@ const useAuth = (_options?: AuthOptions) => {
     const _user = data[user.propertyInLogin]
 
     _token && setToken(_token)
-    _user && setUser(_user)
+
+    if (_user) {
+      setUser(_user)
+    } else {
+      await fetchUser()
+    }
 
     redirectAfterLogin()
   }
