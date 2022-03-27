@@ -135,6 +135,24 @@ const onLogin = async () => {
 </script>
 ```
 
+- After login
+```vue
+<!-- admin page -->
+<template>
+  <div>
+    Username: {{ user.username }}
+    Email: {{ user.email }}
+    loggedIn: {{ loggedIn }}
+  </div>
+</template>
+
+<script lang="ts" setup>
+import { useAuth } from "vue3-auth";
+
+const { user, loggedIn } = useAuth()
+</script>
+```
+
 ### Options
 
 ### `endpoints`
