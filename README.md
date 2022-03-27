@@ -192,6 +192,8 @@ token: {
 user: {
   propertyInLogin: 'user',
   propertyInFetch: '',
+  propertyRole: 'role',
+  propertyPermission: 'permisison',
   autoFetch: true,
 }
 ```
