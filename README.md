@@ -8,6 +8,10 @@
 $ yarn add vue3-auth
 ```
 
+## Demo
+
+This is [demo](https://github.com/vuthanhbayit/vue3-auth-demo) repo
+
 ## Setup
 
 ```ts
