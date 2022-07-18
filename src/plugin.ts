@@ -12,7 +12,7 @@ const createAuth = (app: App, _options: AuthOptions) => {
   app.config.globalProperties.authOptions = options
 
   const { router, redirect, fullPathRedirect, local } = options
-  const { getToken } = useToken(options)
+  const { getToken } = useToken()
   const { isLoggedIn, fetchUser, isRole, hasPermission } = useUser(options)
 
   router.beforeEach(async (to, from, next) => {

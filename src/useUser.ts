@@ -5,7 +5,7 @@ import { reactive } from 'vue'
 import useToken from './useToken'
 
 const useUser = createSharedComposable((options: AuthOptions) => {
-  const { getToken, removeToken } = useToken(options)
+  const { getToken, removeToken } = useToken()
   const { baseUrl, local } = options
   const { token, endpoints } = local
   const { user } = endpoints

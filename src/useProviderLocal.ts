@@ -7,7 +7,7 @@ import useUser from './useUser'
 const useProviderLocal = (options: AuthOptions) => {
   const router = useRouter()
   const route = useRoute()
-  const { setToken, removeToken } = useToken(options)
+  const { setToken, removeToken } = useToken()
   const { setUser, fetchUser, resetState } = useUser(options)
 
   const { baseUrl, redirect, watchLoggedIn } = options

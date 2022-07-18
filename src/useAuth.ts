@@ -21,7 +21,7 @@ const useAuth = (_options?: AuthOptions) => {
     hasPermission,
     resetState,
   } = useUser(options)
-  const { setToken, getToken, removeToken } = useToken(options)
+  const { setToken, getToken, removeToken } = useToken()
   const { login, logout } = useProviderLocal(options)
 
   return {

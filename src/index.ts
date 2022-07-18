@@ -1,4 +1,5 @@
 export { default as authPlugin } from './plugin'
 export { default as useAuth } from './useAuth'
+export { default as useToken } from './useToken'
 export * from './constants'
 export * from './types'
