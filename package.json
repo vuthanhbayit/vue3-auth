@@ -36,10 +36,9 @@
   },
   "dependencies": {
     "@vueuse/core": "^8.2.0",
-    "@vueuse/integrations": "^8.2.0",
     "defu": "^6.0.0",
-    "ohmyfetch": "^0.4.15",
-    "universal-cookie": "^4.0.4"
+    "js-cookie": "^3.0.1",
+    "ohmyfetch": "^0.4.15"
   },
   "peerDependencies": {
     "vue": "^3.2.25",
