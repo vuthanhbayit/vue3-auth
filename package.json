@@ -46,6 +46,7 @@
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.1",
+    "@types/js-cookie": "^3.0.2",
     "@vitejs/plugin-vue": "^2.2.0",
     "@vue/eslint-config-prettier": "^7.0.0",
     "@vue/eslint-config-typescript": "^10.0.0",
