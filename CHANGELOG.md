@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.7](https://github.com/vuthanhbayit/vue3-auth/compare/v3.1.6...v3.1.7) (2022-07-18)
+
+
+### Bug Fixes
+
+* types js-cookie ([55a94c2](https://github.com/vuthanhbayit/vue3-auth/commit/55a94c20adb366913d603fae2d874676ca87ed6f))
+
 ### [3.1.6](https://github.com/vuthanhbayit/vue3-auth/compare/v3.1.5...v3.1.6) (2022-07-18)
 
 
