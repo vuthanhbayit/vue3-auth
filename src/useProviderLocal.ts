@@ -43,7 +43,9 @@ const useProviderLocal = (options: AuthOptions) => {
     const _token = data[token.property]
     const _user = data[user.propertyInLogin]
 
-    _token && setToken(_token)
+    if (_token) {
+      setToken(token.type ? token.type + ' ' + _token : _token)
+    }
 
     if (_user) {
       setUser(_user)

@@ -59,7 +59,7 @@ const useUser = createSharedComposable((options: AuthOptions) => {
         method: user.method,
         async onRequest({ options }) {
           options.headers = {
-            [token.name]: getToken(),
+            [token.name]: getToken() as string,
           }
         },
       })

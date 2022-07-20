@@ -13,6 +13,7 @@ export interface Endpoint {
 
 export interface Token {
   property: string
+  type: string
   name: string
 }
 

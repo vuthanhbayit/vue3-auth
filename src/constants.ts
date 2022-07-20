@@ -14,6 +14,7 @@ export const DEFAULT_OPTION = {
     },
     token: {
       property: 'token',
+      type: 'Bearer',
       name: 'Authorization',
     },
     user: {
