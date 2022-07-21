@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/vuthanhbayit/vue3-auth/compare/v3.1.8...v3.2.0) (2022-07-21)
+
+
+### Features
+
+* types for user ([e9108ea](https://github.com/vuthanhbayit/vue3-auth/commit/e9108ea6eaae262d3c9623ff5052b2804daf3870))
+
 ### [3.1.8](https://github.com/vuthanhbayit/vue3-auth/compare/v3.1.7...v3.1.8) (2022-07-20)
 
 
