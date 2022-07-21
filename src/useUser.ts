@@ -1,99 +1,93 @@
+import { computed, Ref, ref } from 'vue'
 import { createSharedComposable } from '@vueuse/core'
 import { $fetch } from 'ohmyfetch'
-import { AuthOptions } from './types'
-import { reactive } from 'vue'
 import useToken from './useToken'
+import { AuthOptions } from './types'
 
-const useUser = createSharedComposable((options: AuthOptions) => {
-  const { getToken, removeToken } = useToken()
-  const { baseUrl, local } = options
-  const { token, endpoints } = local
-  const { user } = endpoints
-  const { propertyInFetch, propertyRole, propertyPermission } = local.user
+const useUser = createSharedComposable(
+  <U extends Record<string, any>>(options: AuthOptions) => {
+    const { getToken, removeToken } = useToken()
+    const { baseUrl, local } = options
+    const { token, endpoints } = local
+    const { propertyInFetch, propertyRole, propertyPermission } = local.user
 
-  const state = reactive({
-    user: null,
-    loggedIn: false,
-  })
+    const user: Ref<U | null> = ref(null)
+    const loggedIn = ref(false)
 
-  const isLoggedIn = () => state.loggedIn
+    const setUser = (data: any) => {
+      user.value = data
+      loggedIn.value = true
+    }
 
-  const getUser = () => state.user
+    const getRole = () => {
+      if (!user.value) return ''
 
-  const setUser = (user: any) => {
-    state.user = user
-    state.loggedIn = true
-  }
+      return user.value[propertyRole]
+    }
 
-  const getRole = () => {
-    if (!state.user) return ''
+    const isRole = (role: string) => {
+      const roleUser = getRole()
 
-    return state.user[propertyRole]
-  }
+      return roleUser === role
+    }
 
-  const isRole = (role: string) => {
-    const roleUser = getRole()
+    const getPermissions = () => {
+      if (!user.value) return []
 
-    return roleUser === role
-  }
+      return (user.value[propertyPermission] || []) as string[]
+    }
 
-  const getPermissions = () => {
-    if (!state.user) return []
+    const hasPermission = (permission: string) => {
+      const permissionsUser = getPermissions()
 
-    return (state.user[propertyPermission] || []) as string[]
-  }
+      return permissionsUser.includes(permission)
+    }
 
-  const hasPermission = (permission: string) => {
-    const permissionsUser = getPermissions()
+    const fetchUser = async () => {
+      if (!endpoints.user) return
 
-    return permissionsUser.includes(permission)
-  }
+      const url = baseUrl + endpoints.user.url
 
-  const fetchUser = async () => {
-    if (!user) return
+      try {
+        const { data } = await $fetch(url, {
+          method: endpoints.user.method,
+          async onRequest({ options }) {
+            options.headers = {
+              [token.name]: getToken() as string,
+            }
+          },
+        })
 
-    const url = baseUrl + user.url
+        const _user = propertyInFetch ? data[propertyInFetch] : data
 
-    try {
-      const { data } = await $fetch(url, {
-        method: user.method,
-        async onRequest({ options }) {
-          options.headers = {
-            [token.name]: getToken() as string,
-          }
-        },
-      })
+        setUser(_user)
 
-      const _user = propertyInFetch ? data[propertyInFetch] : data
+        return _user
+      } catch (e) {
+        resetState()
+        removeToken()
 
-      setUser(_user)
+        throw e
+      }
+    }
 
-      return _user
-    } catch (e) {
-      resetState()
-      removeToken()
+    const resetState = () => {
+      user.value = null
+      loggedIn.value = false
+    }
 
-      throw e
+    return {
+      setUser,
+      getRole,
+      isRole,
+      getPermissions,
+      hasPermission,
+      fetchUser,
+      resetState,
+      user: computed(() => user.value),
+      loggedIn: computed(() => loggedIn.value),
     }
   }
-
-  const resetState = () => {
-    state.user = null
-    state.loggedIn = false
-  }
-
-  return {
-    state,
-    getUser,
-    setUser,
-    getRole,
-    isRole,
-    getPermissions,
-    hasPermission,
-    isLoggedIn,
-    fetchUser,
-    resetState,
-  }
-})
+)
 
 export default useUser

@@ -11,8 +11,9 @@
 
 <script lang="ts" setup>
 import { useAuth } from '../'
+import { User } from './types/user'
 
-const { logout } = useAuth()
+const { logout, user } = useAuth<User>()
 
 const onLogout = () => {
   logout()

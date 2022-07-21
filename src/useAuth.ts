@@ -1,18 +1,18 @@
-import { getCurrentInstance, toRefs } from 'vue'
+import { getCurrentInstance } from 'vue'
 import useToken from './useToken'
 import useUser from './useUser'
 import useProviderLocal from './useProviderLocal'
 import type { AuthOptions } from './types'
 
-const useAuth = (_options?: AuthOptions) => {
+const useAuth = <U extends object>(_options?: AuthOptions) => {
   const instance = getCurrentInstance()
 
   const options: AuthOptions =
     _options || instance?.appContext.config.globalProperties.authOptions
 
   const {
-    state,
-    getUser,
+    user,
+    loggedIn,
     setUser,
     fetchUser,
     getRole,
@@ -20,7 +20,7 @@ const useAuth = (_options?: AuthOptions) => {
     getPermissions,
     hasPermission,
     resetState,
-  } = useUser(options)
+  } = useUser<U>(options)
   const { setToken, getToken, removeToken } = useToken()
   const { login, logout } = useProviderLocal(options)
 
@@ -30,7 +30,8 @@ const useAuth = (_options?: AuthOptions) => {
     setToken,
     getToken,
     removeToken,
-    getUser,
+    user,
+    loggedIn,
     setUser,
     getRole,
     isRole,
@@ -38,7 +39,6 @@ const useAuth = (_options?: AuthOptions) => {
     hasPermission,
     resetState,
     fetchUser,
-    ...toRefs(state),
   }
 }
 

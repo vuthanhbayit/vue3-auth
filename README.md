@@ -42,7 +42,6 @@ app.use(router).use(authPlugin, {
       property: 'token',
       type: 'Bearer',
       name: 'Authorization',
-      prefix: '_token',
     },
     user: {
       propertyInLogin: 'user',
@@ -175,14 +174,12 @@ token: {
   property: 'token',
   type: 'Bearer',
   name: 'Authorization',
-  prefix: '_token',
 }
 ```
 
 - `property` can be used to specify which field of the response JSON to be used for value. It can be false to directly use API response or being more complicated like auth.token.
 - `type` Authorization header type to be used in `$fetch` requests.
 - `name` Authorization header name to be used in `$fetch` requests.
-- `prefix` Default prefix used in building a key for token `cookie` storage.
 
 ### `user`
 
@@ -215,7 +212,6 @@ const {
   logout,
   setToken,
   getToken,
-  getUser,
   setUser,
   getRole,
   isRole,

@@ -13,7 +13,7 @@ const createAuth = (app: App, _options: AuthOptions) => {
 
   const { router, redirect, fullPathRedirect, local } = options
   const { getToken } = useToken()
-  const { isLoggedIn, fetchUser, isRole, hasPermission } = useUser(options)
+  const { loggedIn, fetchUser, isRole, hasPermission } = useUser(options)
 
   router.beforeEach(async (to, from, next) => {
     const token = getToken()
@@ -22,7 +22,7 @@ const createAuth = (app: App, _options: AuthOptions) => {
     const isValidateAuthenticatedNextPage = (metaAuth: MetaAuth) => {
       let isAuthenticated = false
 
-      if (metaAuth === true && isLoggedIn()) {
+      if (metaAuth === true && loggedIn.value) {
         isAuthenticated = true
       }
 
@@ -50,7 +50,7 @@ const createAuth = (app: App, _options: AuthOptions) => {
         return next({ path: redirect.home })
       }
 
-      if (!isLoggedIn() && local.user.autoFetch) {
+      if (!loggedIn.value && local.user.autoFetch) {
         try {
           await fetchUser()
         } catch {
