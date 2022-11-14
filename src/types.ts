@@ -1,4 +1,5 @@
 import { Router } from 'vue-router'
+import { AxiosInstance, Method } from 'axios'
 
 export interface Redirect {
   login: string
@@ -8,7 +9,7 @@ export interface Redirect {
 
 export interface Endpoint {
   url: string
-  method: string
+  method: Method
 }
 
 export interface Token {
@@ -29,9 +30,9 @@ export type EndpointKey = 'login' | 'logout' | 'user'
 
 export interface AuthOptions {
   router: Router
-  fullPathRedirect: boolean
-  watchLoggedIn: boolean
-  baseUrl: string
+  fetch: AxiosInstance
+  fullPathRedirect?: boolean
+  watchLoggedIn?: boolean
   redirect: Redirect
   local: {
     endpoints: Record<EndpointKey, Endpoint | false>

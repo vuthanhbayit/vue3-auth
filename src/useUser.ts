@@ -1,14 +1,14 @@
 import { computed, Ref, ref } from 'vue'
 import { createSharedComposable } from '@vueuse/core'
-import { $fetch } from 'ohmyfetch'
 import useToken from './useToken'
 import { AuthOptions } from './types'
+import { get } from './utils'
 
 const useUser = createSharedComposable(
   <U extends Record<string, any>>(options: AuthOptions) => {
-    const { getToken, removeToken } = useToken()
-    const { baseUrl, local } = options
-    const { token, endpoints } = local
+    const { removeToken } = useToken()
+    const { local } = options
+    const { endpoints } = local
     const { propertyInFetch, propertyRole, propertyPermission } = local.user
 
     const user: Ref<U | null> = ref(null)
@@ -46,19 +46,12 @@ const useUser = createSharedComposable(
     const fetchUser = async () => {
       if (!endpoints.user) return
 
-      const url = baseUrl + endpoints.user.url
-
       try {
-        const { data } = await $fetch(url, {
+        const { data } = await options.fetch(endpoints.user.url, {
           method: endpoints.user.method,
-          async onRequest({ options }) {
-            options.headers = {
-              [token.name]: getToken() as string,
-            }
-          },
         })
 
-        const _user = propertyInFetch ? data[propertyInFetch] : data
+        const _user = propertyInFetch ? get(data, propertyInFetch) : data
 
         setUser(_user)
 

@@ -15,7 +15,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useAuth } from '../../'
+import { useAuth } from '../../src'
 
 const { hasPermission } = useAuth()
 </script>

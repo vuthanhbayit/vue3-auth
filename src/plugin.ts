@@ -7,13 +7,25 @@ import type { App, Plugin } from 'vue'
 import type { AuthOptions, MetaAuth } from './types'
 
 const createAuth = (app: App, _options: AuthOptions) => {
-  const options = defu(_options, DEFAULT_OPTION)
+  const options = defu(_options, DEFAULT_OPTION) as AuthOptions
 
   app.config.globalProperties.authOptions = options
 
-  const { router, redirect, fullPathRedirect, local } = options
+  const { router, fetch, redirect, fullPathRedirect, local } = options
   const { getToken } = useToken()
   const { loggedIn, fetchUser, isRole, hasPermission } = useUser(options)
+
+  fetch.interceptors.request.use(config => {
+    if (!config) return
+
+    const token = getToken()
+
+    if (token) {
+      config.headers[DEFAULT_OPTION.local.token.name] = token
+    }
+
+    return config
+  })
 
   router.beforeEach(async (to, from, next) => {
     const token = getToken()

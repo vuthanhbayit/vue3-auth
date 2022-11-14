@@ -10,7 +10,7 @@
 </template>
 
 <script lang="ts" setup>
-import { useAuth } from '../'
+import { useAuth } from '../src'
 import { User } from './types/user'
 
 const { logout, user } = useAuth<User>()

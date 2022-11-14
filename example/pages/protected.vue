@@ -9,7 +9,7 @@
 
 <script lang="ts" setup>
 import { useRoute } from 'vue-router'
-import { useAuth } from '../../'
+import { useAuth } from '../../src'
 
 const route = useRoute()
 const { user, loggedIn } = useAuth()
