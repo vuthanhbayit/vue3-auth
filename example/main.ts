@@ -1,26 +1,32 @@
 import { createApp } from 'vue'
 import router from './router'
 import App from './App.vue'
-import { authPlugin } from '../'
+import { authPlugin } from '../src'
+import { fetch } from './utils'
 
 const app = createApp(App)
 
 app.use(router).use(authPlugin, {
   router,
-  baseUrl: import.meta.env.VITE_BASE_URL,
+  fetch,
   local: {
     endpoints: {
       login: {
         url: '/front-store/auth/login',
         method: 'post',
-        propertyName: 'token',
       },
       user: {
         url: '/front-store/auth/user',
         method: 'get',
-        propertyName: 'data',
       },
       logout: false,
+    },
+    token: {
+      property: 'data.token',
+    },
+    user: {
+      propertyInLogin: 'data.user',
+      propertyInFetch: 'data',
     },
   },
 })

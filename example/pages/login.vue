@@ -18,13 +18,13 @@
 
 <script lang="ts" setup>
 import { reactive } from 'vue'
-import { useAuth } from '../../'
+import { useAuth } from '../../src'
 
 const { login } = useAuth()
 
 const state = reactive({
-  phone: '',
-  password: '',
+  phone: '0397153837',
+  password: '123456',
 })
 
 const onSubmit = async () => {

@@ -1,8 +1,8 @@
-import { $fetch } from 'ohmyfetch'
 import { useRoute, useRouter } from 'vue-router'
 import { AuthOptions } from './types'
 import useToken from './useToken'
 import useUser from './useUser'
+import { get } from './utils'
 
 const useProviderLocal = (options: AuthOptions) => {
   const router = useRouter()
@@ -10,7 +10,7 @@ const useProviderLocal = (options: AuthOptions) => {
   const { setToken, removeToken } = useToken()
   const { setUser, fetchUser, resetState } = useUser(options)
 
-  const { baseUrl, redirect, watchLoggedIn } = options
+  const { redirect, watchLoggedIn } = options
   const { endpoints, token, user } = options.local
 
   const redirectAfterLogin = () => {
@@ -34,14 +34,13 @@ const useProviderLocal = (options: AuthOptions) => {
       return
     }
 
-    const url = baseUrl + endpoints.login.url
-    const { data } = await $fetch(url, {
+    const { data } = await options.fetch(endpoints.login.url, {
       method: endpoints.login.method,
-      body: args,
+      params: args,
     })
 
-    const _token = data[token.property]
-    const _user = data[user.propertyInLogin]
+    const _token = get(data, token.property)
+    const _user = get(data, user.propertyInLogin)
 
     if (_token) {
       setToken(token.type ? token.type + ' ' + _token : _token)
@@ -68,10 +67,9 @@ const useProviderLocal = (options: AuthOptions) => {
       return
     }
 
-    const url = baseUrl + endpoints.logout.url
-    const { data } = await $fetch(url, {
+    const { data } = await options.fetch(endpoints.logout.url, {
       method: endpoints.logout.method,
-      body: args,
+      params: args,
     })
 
     return data
