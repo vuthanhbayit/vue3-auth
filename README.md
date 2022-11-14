@@ -24,6 +24,7 @@ const app = createApp(App)
 
 app.use(router).use(authPlugin, {
   router,
+  fetch: axios,
   baseUrl: import.meta.env.VITE_BASE_URL,
   fullPathRedirect: true,
   watchLoggedIn: true,
@@ -59,10 +60,10 @@ app.mount('#app')
 ## Options
 General options shared with all strategies. See AuthOption in [types.ts](https://github.com/vuthanhbayit/vue3-auth/blob/main/src/types.ts) for defaults.
 
-### `baseUrl`
+### `fetch`
 - Required
 
-Plugin used ohmyfetch to call api. [see more](https://github.com/unjs/ohmyfetch#%EF%B8%8F-adding-baseurl)
+Plugin used axios instance to call api. [see more](https://github.com/axios/axios)
 
 ### `redirect`
 - Default
