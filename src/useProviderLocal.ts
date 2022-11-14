@@ -1,8 +1,8 @@
 import { useRoute, useRouter } from 'vue-router'
+import { get } from '@thinkvn/utils'
 import { AuthOptions } from './types'
 import useToken from './useToken'
 import useUser from './useUser'
-import { get } from './utils'
 
 const useProviderLocal = (options: AuthOptions) => {
   const router = useRouter()

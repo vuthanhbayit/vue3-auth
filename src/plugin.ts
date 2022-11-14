@@ -1,8 +1,8 @@
 import defu from 'defu'
+import { isObject } from '@thinkvn/utils'
 import useToken from './useToken'
 import useUser from './useUser'
 import { DEFAULT_OPTION } from './constants'
-import { isObject } from './utils'
 import type { App, Plugin } from 'vue'
 import type { AuthOptions, MetaAuth } from './types'
 
