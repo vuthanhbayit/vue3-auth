@@ -365,35 +365,35 @@
   dependencies:
     tslib "^2.4.0"
 
-"@thinkvn/axios-cancel@^3.0.4":
-  version "3.0.4"
-  resolved "https://registry.yarnpkg.com/@thinkvn/axios-cancel/-/axios-cancel-3.0.4.tgz#f20a87b73e641625a5aeef17966a7f6d7a9f88c9"
-  integrity sha512-UIr86DgqAmY9KhZ+CmxajYUbuWPP/VGNzaSEo1ynufFPWPTRbO0N4dZ2CnSHl/h4I4cjEDYbnQ7C1CbBkfybAQ==
+"@thinkvn/axios-cancel@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@thinkvn/axios-cancel/-/axios-cancel-3.4.0.tgz#33766f59665c63ffddd9a669dd2cbff106b7adfb"
+  integrity sha512-o+Ld0KgWrleFsLd+hd3M1zBJA5oZYIYUYdxRkvkP+NBvDjS6x9jsP+/bNdDilueQzcmAXGwXpz7sNGcRjRQZ/w==
   dependencies:
-    "@thinkvn/utils" "^3.0.2"
+    "@thinkvn/utils" "^3.4.0"
 
-"@thinkvn/fetch@^3.3.0":
-  version "3.3.0"
-  resolved "https://registry.yarnpkg.com/@thinkvn/fetch/-/fetch-3.3.0.tgz#bf1d4e15af1fc7e2cbe1045cfbcc511015c4a2ae"
-  integrity sha512-+cVoyCoH5XOwGpU/ovG086zw5EzyDyUsHmcey+1fmKAqjwIApz4UFSd51x/oUgFEZ5kogE8/0Els3xuH0oehMg==
+"@thinkvn/fetch@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@thinkvn/fetch/-/fetch-3.4.0.tgz#4650dacdf99c4d5990abef26260d68f276cef0a5"
+  integrity sha512-aA4PzAAl0oYxczxWKvf8EruWltkZSTi1+4mGDQ7G2uXV6U5sRzTEmlDLmUpR2kAauxuqkMlF0C0O9wP89yxvWw==
   dependencies:
-    "@thinkvn/axios-cancel" "^3.0.4"
-    "@thinkvn/logger" "^3.1.0"
+    "@thinkvn/axios-cancel" "^3.4.0"
+    "@thinkvn/logger" "^3.4.0"
     axios "^0.21.4"
     zod "^3.19.1"
     zod-validation-error "^0.2.1"
 
-"@thinkvn/logger@^3.1.0":
-  version "3.1.0"
-  resolved "https://registry.yarnpkg.com/@thinkvn/logger/-/logger-3.1.0.tgz#e7149d4ce56093b3faa66a522059cf7b91ba7395"
-  integrity sha512-3B1VNt0Jn/NAxbnghsnQyPLDGA6w9MVZy8mN9Uek9juybrcFr+eLHCHoj7K193NnufXBziWAQ1HxrqMZi+m+cg==
+"@thinkvn/logger@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@thinkvn/logger/-/logger-3.4.0.tgz#b0801702d3760204a5a8adaed447087452e1937a"
+  integrity sha512-ekLIK3oB0nG/rfagCxD/8ERwdPoRrBBwQkm2lXz7XCGa5hZqu/rvoIgO3xz6OVBQE5YlJwrfuJgfoRp6trduHA==
   dependencies:
-    "@thinkvn/utils" "^3.0.2"
+    "@thinkvn/utils" "^3.4.0"
 
-"@thinkvn/utils@^3.0.2":
-  version "3.0.2"
-  resolved "https://registry.yarnpkg.com/@thinkvn/utils/-/utils-3.0.2.tgz#7c313b30506a4b49a9e38c515e34a7927c232638"
-  integrity sha512-9yYGdyq6eSOu9APQbC5pFPgUbA8ja0mrP7nMhwX9oz0503G61u8qTduCbqp5Q+LLrj1qxCYOE1tVe6A8lV4y4Q==
+"@thinkvn/utils@^3.4.0":
+  version "3.4.0"
+  resolved "https://registry.yarnpkg.com/@thinkvn/utils/-/utils-3.4.0.tgz#4eaca6cd39dec8a4817b660c69118f6196cdcfdd"
+  integrity sha512-bA/DcHFcDT1XCyTJ4jTYk1TMJ1xczW2yUfnYy4jF3WPFxn78DXyAaXEcyKChb1guvfql+qCmVxb/+8IYZrxXFA==
   dependencies:
     scroll-into-view-if-needed "^2.2.29"
     vue-demi "^0.13.6"

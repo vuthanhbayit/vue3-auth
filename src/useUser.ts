@@ -1,8 +1,8 @@
 import { computed, Ref, ref } from 'vue'
 import { createSharedComposable } from '@vueuse/core'
+import { get } from '@thinkvn/utils'
 import useToken from './useToken'
 import { AuthOptions } from './types'
-import { get } from './utils'
 
 const useUser = createSharedComposable(
   <U extends Record<string, any>>(options: AuthOptions) => {
