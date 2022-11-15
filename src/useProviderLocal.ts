@@ -36,7 +36,7 @@ const useProviderLocal = (options: AuthOptions) => {
 
     const { data } = await options.fetch(endpoints.login.url, {
       method: endpoints.login.method,
-      params: args,
+      data: args,
     })
 
     const _token = get(data, token.property)
@@ -69,7 +69,7 @@ const useProviderLocal = (options: AuthOptions) => {
 
     const { data } = await options.fetch(endpoints.logout.url, {
       method: endpoints.logout.method,
-      params: args,
+      data: args,
     })
 
     return data
