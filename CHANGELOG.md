@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.3](https://github.com/vuthanhbayit/vue3-auth/compare/v4.0.2...v4.0.3) (2022-11-15)
+
+
+### Bug Fixes
+
+* fetch data ([9da50d8](https://github.com/vuthanhbayit/vue3-auth/commit/9da50d86a351143ced9bb231d0f6a3c53be3c785))
+
 ### [4.0.2](https://github.com/vuthanhbayit/vue3-auth/compare/v4.0.1...v4.0.2) (2022-11-14)
 
 ### [4.0.1](https://github.com/vuthanhbayit/vue3-auth/compare/v4.0.0...v4.0.1) (2022-11-14)
