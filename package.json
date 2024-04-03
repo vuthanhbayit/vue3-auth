@@ -17,10 +17,6 @@
     "url": "https://github.com/vuthanhbayit/vue3-auth"
   },
   "sideEffects": false,
-  "exports": {
-    "require": "./dist/index.cjs",
-    "import": "./dist/index.mjs"
-  },
   "main": "./dist/index.cjs",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
