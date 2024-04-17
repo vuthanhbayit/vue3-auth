@@ -43,6 +43,10 @@ const useUser = createSharedComposable(
       return permissionsUser.includes(permission)
     }
 
+    const hasPermissions = (permissions: string[]) => {
+      return permissions.every(hasPermission)
+    }
+
     const fetchUser = async () => {
       if (!endpoints.user) return
 
@@ -75,6 +79,7 @@ const useUser = createSharedComposable(
       isRole,
       getPermissions,
       hasPermission,
+      hasPermissions,
       fetchUser,
       resetState,
       user: computed(() => user.value),

@@ -1,7 +1,7 @@
 import { createApp } from 'vue'
 import router from './router'
 import App from './App.vue'
-import { authPlugin } from '../src'
+import { authPlugin } from '../dist'
 import { fetch } from './utils'
 
 const app = createApp(App)
